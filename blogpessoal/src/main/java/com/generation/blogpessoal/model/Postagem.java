@@ -1,5 +1,6 @@
-package com.generation.blogpessoal.model;
 
+
+package com.generation.blogpessoal.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -9,7 +10,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_postagens")
-
 public class Postagem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
