@@ -16,9 +16,12 @@ public class Tema {
     @NotNull(message = "O atributo -Descrição- é obrigatório")
     private String descricao;
 
-    @OneToMany (fetch = FetchType.LAZY, mappedBy = "tema", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY /*Tipo de Fetch */
+            , mappedBy = "tema" /*Definição da chave estrangeira*/
+            , cascade = CascadeType.REMOVE) /*Forma de cascata, exemplo desse seria se apagar um tema, as postagens relacionadas a esse tema serão apagadas também*/
     @JsonIgnoreProperties("tema")
     private List<Postagem> postagem;
+
 
     public Long getId() {
         return id;
@@ -28,12 +31,12 @@ public class Tema {
         this.id = id;
     }
 
-    public String getDescricao(){
+    public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(String descricao){
-        this.descricao=descricao;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public List<Postagem> getPostagem() {

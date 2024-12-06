@@ -1,6 +1,7 @@
 
 
 package com.generation.blogpessoal.model;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 public class Postagem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @NotBlank(message = "O atributo título pe obrigatório")
     @Size(min = 5, max = 100, message = "O atributo titulo deve conter entre 5 e 100 caracteres")
@@ -26,6 +27,10 @@ public class Postagem {
 
     @UpdateTimestamp
     private LocalDateTime data;
+
+    @ManyToOne
+    @JsonIgnoreProperties("usuario")
+    private Usuario usuario;
 
     @ManyToOne
     @JsonIgnoreProperties("postagem")
@@ -69,5 +74,13 @@ public class Postagem {
 
     public void setTema(Tema tema) {
         this.tema = tema;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
