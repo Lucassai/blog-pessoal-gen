@@ -39,20 +39,19 @@ public class UserDetailsImpl implements UserDetails{
         return userName;
     }
     @Override
-    public boolean isAccountNonExpired() {
+    public boolean isAccountNonExpired() { //Indica se o acesso do usuário expirou (tempo de acesso). Uma conta expirada não pode ser autenticada (return false).
         return true;
     }
     @Override
-    public boolean isAccountNonLocked() {
+    public boolean isAccountNonLocked() { //Indica se o usuário está bloqueado ou desbloqueado. Um usuário bloqueado não pode ser autenticado (return false).
         return true;
     }
     @Override
-    public boolean isCredentialsNonExpired() {
+    public boolean isCredentialsNonExpired() { // Indica se as credenciais do usuário (senha) expiraram (precisa ser trocada). Senha expirada impede a autenticação (return false).
         return true;
     }
     @Override
-    public boolean isEnabled() {
+    public boolean isEnabled() { //	Indica se o usuário está habilitado ou desabilitado. Um usuário desabilitado não pode ser autenticado (return false).
         return true;
     }
-
 }
