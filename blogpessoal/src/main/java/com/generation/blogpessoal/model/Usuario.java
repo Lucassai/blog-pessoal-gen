@@ -18,8 +18,12 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Version
+    private Long version;
+
     @NotNull(message = "O atributo nome é obrigatório")
     private String nome;
+
 
     @NotNull(message = "O atributo Usuário é obrigatório!")
     @Email(message = "O atributo Usuário deve ser um email válido!")
@@ -44,6 +48,12 @@ public class Usuario {
         this.usuario = usuario;
         this.senha = senha;
         this.foto = foto;
+        this.version = 1L;
+    }
+
+    public Usuario(Long id, String nome, String email, String senha, String foto, Long version) {
+        this(id, nome, email, senha, foto);
+        this.version = version;
     }
 
     public Usuario() {
@@ -101,4 +111,13 @@ public class Usuario {
     public void setPostagem(List<Postagem> postagem) {
         this.postagem = postagem;
     }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
 }

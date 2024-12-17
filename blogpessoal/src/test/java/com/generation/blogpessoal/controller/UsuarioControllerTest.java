@@ -3,6 +3,7 @@ package com.generation.blogpessoal.controller;
 import com.generation.blogpessoal.model.Usuario;
 import com.generation.blogpessoal.repository.UsuarioRepository;
 import com.generation.blogpessoal.service.UsuarioService;
+import jakarta.transaction.Transactional;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Optional;
 
@@ -42,6 +44,7 @@ public class UsuarioControllerTest {
 public void deveCriarUmUsuario() {
         HttpEntity<Usuario> corpoRequisicao = new HttpEntity<Usuario>(new Usuario(0L, "Paulo Antunes", "paulo@email.com.br", "12313442", "-"));
         ResponseEntity<Usuario> corpoResposta = testRestTemplate.exchange("/usuarios/cadastrar", HttpMethod.POST, corpoRequisicao, Usuario.class);
+
         assertEquals(HttpStatus.CREATED, corpoResposta.getStatusCode());
 }
 
@@ -76,12 +79,10 @@ public void deveCriarUmUsuario() {
         assertEquals(HttpStatus.OK, corpoResposta.getStatusCode());
 
     }
-
     @Test
     @DisplayName("Listar todos os usuários")
     public void deveMostrarTodosUsuarios() {
         usuarioService.cadastrarUsuario(new Usuario(null, "Isabella Mendes", "isabella.mendes@gmail.com", "123456", "-"));
-
         usuarioService.cadastrarUsuario(new Usuario(null, "Tereza Mendes", "tereza.mendes@gmail.com", "123456", "-"));
 
         ResponseEntity<String> resposta = testRestTemplate
