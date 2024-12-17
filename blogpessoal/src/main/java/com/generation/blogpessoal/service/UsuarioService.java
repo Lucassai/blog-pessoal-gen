@@ -9,6 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.generation.blogpessoal.model.UsuarioLogin;
@@ -16,6 +17,7 @@ import com.generation.blogpessoal.model.Usuario;
 import com.generation.blogpessoal.repository.UsuarioRepository;
 import com.generation.blogpessoal.security.JwtService;
 
+@Transactional
 @Service
 public class UsuarioService {
 
@@ -28,9 +30,10 @@ public class UsuarioService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public Optional<Usuario> cadastrarUsuario(Usuario usuario) {
 
-        if (usuarioRepository.findByUsuario(usuario.getUsuario()).isPresent())
+    public Optional<Usuario> cadastrarUsuario(Usuario usuario) {
+       boolean isUserPresent = usuarioRepository.findByUsuario(usuario.getUsuario()).isPresent();
+        if (isUserPresent)
             return Optional.empty();
 
         usuario.setSenha(criptografarSenha(usuario.getSenha()));

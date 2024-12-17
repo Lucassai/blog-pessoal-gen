@@ -18,15 +18,18 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "O nome deve conter entre 3 e 50 caracteres")
-    @Size(min = 3, max = 50)
+    @Version
+    private Long version;
+
+    @NotNull(message = "O atributo nome é obrigatório")
     private String nome;
+
 
     @NotNull(message = "O atributo Usuário é obrigatório!")
     @Email(message = "O atributo Usuário deve ser um email válido!")
     private String usuario;
 
-    @NotNull(message = "O atributo senha é obrigatório!")
+    @NotBlank(message = "O atributo senha é obrigatório")
     @Size(min = 6, message = "Tamanho mínimo da senha é de 6 dígitos")
     private String senha;
 
@@ -38,6 +41,23 @@ public class Usuario {
             , cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("usuario")
     private List<Postagem> postagem;
+
+    public Usuario(Long id, String nome, String usuario, String senha, String foto) {
+        this.id = id;
+        this.nome = nome;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.foto = foto;
+        this.version = 1L;
+    }
+
+    public Usuario(Long id, String nome, String email, String senha, String foto, Long version) {
+        this(id, nome, email, senha, foto);
+        this.version = version;
+    }
+
+    public Usuario() {
+    }
 
 
     public long getId() {
@@ -91,4 +111,13 @@ public class Usuario {
     public void setPostagem(List<Postagem> postagem) {
         this.postagem = postagem;
     }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
 }

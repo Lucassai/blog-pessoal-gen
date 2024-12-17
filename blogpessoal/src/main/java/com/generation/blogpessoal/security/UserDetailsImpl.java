@@ -1,5 +1,6 @@
 package com.generation.blogpessoal.security;
 
+import java.io.Serial;
 import java.util.Collection;
 import java.util.List;
 
@@ -11,10 +12,12 @@ import com.generation.blogpessoal.model.Usuario;
 
 public class UserDetailsImpl implements UserDetails{
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private String userName;
     private String password;
+
     private List<GrantedAuthority> authorities;
 
     public UserDetailsImpl(Usuario user){
@@ -42,10 +45,12 @@ public class UserDetailsImpl implements UserDetails{
     public boolean isAccountNonExpired() { //Indica se o acesso do usuário expirou (tempo de acesso). Uma conta expirada não pode ser autenticada (return false).
         return true;
     }
+
     @Override
     public boolean isAccountNonLocked() { //Indica se o usuário está bloqueado ou desbloqueado. Um usuário bloqueado não pode ser autenticado (return false).
         return true;
     }
+
     @Override
     public boolean isCredentialsNonExpired() { // Indica se as credenciais do usuário (senha) expiraram (precisa ser trocada). Senha expirada impede a autenticação (return false).
         return true;
